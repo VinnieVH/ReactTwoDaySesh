@@ -1,18 +1,15 @@
 import moment from "moment";
 import styled from "styled-components";
 import Loader from "../../components/Loader";
+import Navigation from "../../components/Navigation";
 import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
 import PhotoDetail from "./components/PhotoDetail";
-
-
-const API_KEY = process.env.REACT_APP_NASA_API_KEY;
  
 const DetailView = () => {
     const queryParams = useQuery();
     const date = moment(queryParams.get('date'));
 
-    console.log(API_KEY);
     const { data, loading, error } = useFetch(`https://api.nasa.gov/planetary/apod?api_key=YNGbbc2IQaKJacTmf4g2ZfFpV4NN3PhnXbdfwuCb&date=${moment(date).subtract(1, 'year').format('YYYY-MM-DD')}`)
     
     let content;
@@ -21,13 +18,16 @@ const DetailView = () => {
     else if (data) content = <PhotoDetail photo={data} />;
     
     return ( 
-        <DetailContainer>{content}</DetailContainer>
+        <DetailContainer>
+            <Navigation type={"day"} date={date}/>
+            {content}
+        </DetailContainer>
      );
 };
 
 const DetailContainer = styled.div`
     flex: 1;
-    align-self: stretch;;
+    align-self: stretch;
 `;
 
 export default DetailView;

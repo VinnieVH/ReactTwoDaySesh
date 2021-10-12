@@ -18,13 +18,13 @@ const TilesContainer = (props: TilesContainerProps) => {
 
     const dates = () => {
         let arr = [];
-        let date: Moment = moment().startOf('month');
+        let date: Moment = moment().month(props.month).startOf('month');
 
         let firstDayOfMonth = moment(date).day();
         for(let i =0 ; i<firstDayOfMonth;i++){
         arr.push(null);
         };
-        while(date.isBefore(moment().endOf('month'))){
+        while(date.isBefore(moment().month(props.month).endOf('month'))){
         arr.push(date);
         date = moment(date).add(1,'day');
         };

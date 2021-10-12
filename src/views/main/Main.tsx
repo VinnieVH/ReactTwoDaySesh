@@ -2,6 +2,7 @@ import moment from "moment";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import Navigation from "../../components/Navigation";
 import useQuery from "../../hooks/useQuery";
 import DaysOfWeek from "./components/DaysOfWeek";
 import TilesContainer from "./components/TilesContainer";
@@ -18,6 +19,7 @@ const MainView = () => {
     if(!date) return null;
     return (
         <Container>
+            <Navigation type={"month"} date={date}/>
         <DaysOfWeek />
         <TilesContainer month={moment(date).month()} />
         </Container>
