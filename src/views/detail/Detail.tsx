@@ -1,5 +1,6 @@
 import moment from "moment";
 import styled from "styled-components";
+import Loader from "../../components/Loader";
 import useFetch from "../../hooks/useFetch";
 import useQuery from "../../hooks/useQuery";
 import PhotoDetail from "./components/PhotoDetail";
@@ -15,7 +16,7 @@ const DetailView = () => {
     const { data, loading, error } = useFetch(`https://api.nasa.gov/planetary/apod?api_key=YNGbbc2IQaKJacTmf4g2ZfFpV4NN3PhnXbdfwuCb&date=${moment(date).subtract(1, 'year').format('YYYY-MM-DD')}`)
     
     let content;
-    if (loading) content = <div>Loading...</div>;
+    if (loading) content = <Loader />;
     else if (error) content = <div>{error}</div>;
     else if (data) content = <PhotoDetail photo={data} />;
     

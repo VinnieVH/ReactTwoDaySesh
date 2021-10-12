@@ -1,30 +1,27 @@
-import moment, { Moment } from "moment";
+import moment from "moment";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import useQuery from "../../hooks/useQuery";
 import DaysOfWeek from "./components/DaysOfWeek";
 import TilesContainer from "./components/TilesContainer";
 
 const MainView = () => {
-     const dates = () => {
-    let arr = [];
-    let date: Moment = moment().startOf('month');
+    const history = useHistory();
+    const queryParams = useQuery();
+    const date = queryParams.get('date') ? moment(queryParams.get('date')) : null;
 
-    let firstDayOfMonth = moment(date).day();
-    for(let i =0 ; i<firstDayOfMonth;i++){
-      arr.push(null);
-    };
-    while(date.isBefore(moment().endOf('month'))){
-      arr.push(date);
-      date = moment(date).add(1,'day');
-    };
+    useEffect(() => {
+        if (!queryParams.get('date')) history.push(`?date=${moment().startOf('month').format('YYYY-MM-DD')}`)
+    }, [queryParams, history])
 
-    return arr;
-  }
-  return (
-    <Container>
-      <DaysOfWeek />
-      <TilesContainer dates={dates()} />
-    </Container>
-  );
+    if(!date) return null;
+    return (
+        <Container>
+        <DaysOfWeek />
+        <TilesContainer month={moment(date).month()} />
+        </Container>
+    );
 };
 
 const Container = styled.div`

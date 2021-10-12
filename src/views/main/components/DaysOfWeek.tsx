@@ -19,7 +19,7 @@ const DaysOfWeek = () => {
 };
 
 const StyledContainer = styled.div`
-    width: 1063px;
+    width: 1050px;
     height: 25px;
     display: flex;
     align-items: stretch;
